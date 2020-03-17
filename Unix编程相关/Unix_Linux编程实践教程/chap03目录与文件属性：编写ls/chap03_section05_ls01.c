@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 ls01.c : purpose list contents of directory or diectories ation if no args, use . else list files in args
 */
 
@@ -45,9 +45,9 @@ void do_ls(char dirname[])
 }
 
 /*
-»¹ÄÜ×öµÄ£º
-£¨1£©ÅÅÐò£º°ÑËùÓÐÎÄ¼þÃû¶ÁÈëµ½Ò»¸öÊý×é£¬ÓÃqsort()ÅÅÐò
-£¨2£©·ÖÀ¸£º°ÑËùÓÐÎÄ¼þÃû¶ÁÈëµ½Ò»¸öÊý×é£¬¼ÆËã³öÁÐµÄ¿í¶ÈºÍÐÐÊý
-£¨3£©.ÎÄ¼þ£ºÓÃ-aµÄÊ±ºòÏÔÊ¾³öÀ´
-£¨4£©-lÑ¡Ïî£º Õâ¸ö²»Ì«ÈÝÒ×£¬ÒªÓÃstat½á¹¹Ìå»ñµÃ
+è¿˜èƒ½åšçš„ï¼š
+ï¼ˆ1ï¼‰æŽ’åºï¼šæŠŠæ‰€æœ‰æ–‡ä»¶åè¯»å…¥åˆ°ä¸€ä¸ªæ•°ç»„ï¼Œç”¨qsort()æŽ’åº
+ï¼ˆ2ï¼‰åˆ†æ ï¼šæŠŠæ‰€æœ‰æ–‡ä»¶åè¯»å…¥åˆ°ä¸€ä¸ªæ•°ç»„ï¼Œè®¡ç®—å‡ºåˆ—çš„å®½åº¦å’Œè¡Œæ•°
+ï¼ˆ3ï¼‰.æ–‡ä»¶ï¼šç”¨-açš„æ—¶å€™æ˜¾ç¤ºå‡ºæ¥
+ï¼ˆ4ï¼‰-lé€‰é¡¹ï¼š è¿™ä¸ªä¸å¤ªå®¹æ˜“ï¼Œè¦ç”¨statç»“æž„ä½“èŽ·å¾—
 */
