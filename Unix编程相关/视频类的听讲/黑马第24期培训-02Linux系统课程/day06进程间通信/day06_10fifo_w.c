@@ -15,8 +15,12 @@ int main(int argc, char* argv[])
 
 	//当前目录有一个myfifo文件
 
+	printf("begin open write...\n"); //在写了read()后追加的这行
+
 	// 打开fifo文件
 	int fd = open(argv[1], O_WRONLY);
+
+	printf("end open write...\n"); //在写了read()后追加的这行
 	// 写
 	char buf[256];
 	int num = 1;
