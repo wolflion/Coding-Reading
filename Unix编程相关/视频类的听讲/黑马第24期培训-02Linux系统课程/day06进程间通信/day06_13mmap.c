@@ -17,7 +17,7 @@ int main()
 	int fd = open("mem.txt",O_RDWR);
 
 	//char *mem = mmap(NULL,8,PORT_READ|PORT_WRITE,MAP_SHARED,fd,0);
-	char *mem = mmap(NULL, 8, PORT_READ | PORT_WRITE, MAP_PRIVATE, fd, 0);
+	char *mem = mmap(NULL, 8, PORT_READ | PORT_WRITE, MAP_PRIVATE, fd, 0);  //如果这里写20，超过8了，跟文件大小有关
 	if (mem == MAP_FAILED)
 	{
 		perror("mmap err");
