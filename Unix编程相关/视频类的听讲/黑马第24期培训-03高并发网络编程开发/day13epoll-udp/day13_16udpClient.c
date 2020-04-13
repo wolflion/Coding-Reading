@@ -16,39 +16,28 @@ int main(int argc, const char* argv[])
 		exit(1);
 	}
 
-	//fd绑定本地的IP和端口
+	//初始化服务器的IP和端口
 	struct sockaddr_in serv;
 	memset(&serv, 0, sizeof(serv));
 	serv.sin_family = AF_INET;
 	serv.sin_port = htons(8765);
-	serv.sin_addr.s_addr = htonl(INADDR_ANY);
-	int ret = bind(fd, (struct sockaddr*)&serv, sizeof(serv));
-	if (ret == -1)
-	{
-		perror("bind error");
-		exit(1);
-	}
+	inet_pton(AF_INET, "127.0.0.1", &serv.sin_addr.s_addr);
 
-	struct sockaddr_in client;
 	socklen_t cli_len = sizeof(client);
 	//通信
 	char buf[1024] = { 0 };
 	while (true)
 	{
-		int recvlen = recvfrom(fd,buf,sizeof(buf),0,(struct sockaddr*)&client,&cli_len);
-		if (recvlen == -1)
-		{
-			perror("recvfrom error");
-			exit(1);
-		}
-		printf("recv buf: %s\n", buf);
-		char ip[64] = { 0 };
-		printf("New Client IP: %s,Port: %d\n",
-			inet_ntop(AF_INET, &client.sin_addr.s_addr, ip, sizeof(ip)),
-			ntohs(client.sin_port));
+		char buf[1024] = { 0 };
+		fgets(buf, sizeof(buf),stdin);
+		//数据的发送--server-ip Port
+		sendto(fd, buf, strlen(buf) + 1, 0, (struct sockaddr*)&serv, sizeof(serv));
 
-		//给客户端发数据
-		sendto(fd,buf,strlen(buf)+1,0,(struct sockaddr*)&client,sizeof(client));
+		//等待服务器发送数据过来，只能用recvfrom()
+		recvfrom(fd, buf, sizeof(buf), 0, NULL,NULL);
+		
+		printf("recv buf: %s\n", buf);
+		
 	}
 
 	close(fd);
