@@ -1,15 +1,15 @@
-#include<stdio.h>
+ï»¿#include<stdio.h>
 #include <malloc.h>
 
 void f(int k)
 {
 	int m;
-	double *q = (double *)malloc(200);  //mallocÀïµÄ200£¬ÊÇÔÚ¶ÑÀï·ÖÅäµÄ£»
+	double *q = (double *)malloc(200);  //mallocé‡Œçš„200ï¼Œæ˜¯åœ¨å †é‡Œåˆ†é…çš„ï¼›
 }
 
 int main(void)
 {
-	int i = 10;  //¾Ö²¿±äÁ¿£¬ÔÚÕ»Àï·ÖÅä£»
+	int i = 10;  //å±€éƒ¨å˜é‡ï¼Œåœ¨æ ˆé‡Œåˆ†é…ï¼›
 	int *p = (int *)malloc(100);
 
 	return 0;

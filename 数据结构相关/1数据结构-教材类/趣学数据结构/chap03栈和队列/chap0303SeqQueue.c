@@ -40,3 +40,19 @@ bool DeQueue(SqQueue &Q, int &e)
 	Q.front = (Q.front + 1) % Maxsize;
 	return true;
 }
+
+//取队头元素
+int GetHead(SqQueue Q)
+{
+	if (Q.rear!=Q.front)
+	{
+		return Q.base[Q.front];
+	}
+	return -1;
+}
+
+//求队列的长度
+int QueueLength(SqQueue Q)
+{
+	return(Q.rear - Q.front + Maxsize) % Maxsize;
+}
