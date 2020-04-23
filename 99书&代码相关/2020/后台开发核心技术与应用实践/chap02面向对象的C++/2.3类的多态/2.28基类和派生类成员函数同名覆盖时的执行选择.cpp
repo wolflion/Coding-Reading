@@ -1,4 +1,4 @@
-#include<iostream>
+﻿#include<iostream>
 using namespace std;
 
 class A
@@ -29,3 +29,8 @@ int main()
 	b.foo();
 	return 0;
 }
+
+/*
+This is A.
+This is B.
+*/
