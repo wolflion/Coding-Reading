@@ -25,7 +25,7 @@ struct myevent_s {
     void (*call_back)(int fd, int events, void *arg);       //鍥炶皟鍑芥暟
     int status;                                             //鏄惁鍦ㄧ洃鍚?1->鍦ㄧ孩榛戞爲涓?鐩戝惉), 0->涓嶅湪(涓嶇洃鍚?
     char buf[BUFLEN];
-    int len;
+    int len;  //len中存放的是buf[]里的数字；
     long last_active;                                       //璁板綍姣忔鍔犲叆绾㈤粦鏍?g_efd 鐨勬椂闂村€?};
 
 int g_efd;                                                  //鍏ㄥ眬鍙橀噺, 淇濆瓨epoll_create杩斿洖鐨勬枃浠舵弿杩扮
@@ -39,7 +39,7 @@ void eventset(struct myevent_s *ev, int fd, void (*call_back)(int, int, void *),
     ev->fd = fd;
     ev->call_back = call_back;
     ev->events = 0;
-    ev->arg = arg;
+    ev->arg = arg;  //这个指向自己了
     ev->status = 0;
     //memset(ev->buf, 0, sizeof(ev->buf));
     //ev->len = 0;
