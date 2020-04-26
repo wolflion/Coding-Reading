@@ -1,0 +1,19 @@
+[tuple元组](https://zh.cppreference.com/w/cpp/utility/tuple)
+
+0、课前秀
++ 又是我知识的盲区。
++ **tuple元组**是一个固定大小的不同类型值的集合，是泛化的std::pair。
++ 也可以把tuple元组当作一个通用的结构体来用，不需要创建结构体又获取结构体的特征，在某些情况下可以取代结构体。
+
++ 1、简单的一面
+	+ 构造一个tuple
+`tuple<const char* int>tp = make_tuple(sendPack, nSendSize);`
+
++ 2、复杂的一面
+
++ 3、不要滥用
+	+ 如果用tuple来替代3个以上字段的结构体时就不太合适了，会导致易读性降低。
+	+ 到底都是`std::get<N>(tuple)`，反而不直观
+
+ReadMe
++ 20200426第1版：《深入应用C++》1.7
