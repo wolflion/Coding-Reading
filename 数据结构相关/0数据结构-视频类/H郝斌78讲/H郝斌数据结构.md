@@ -140,11 +140,113 @@ int main(void)
 + 树、图就会用到链点。
 + 线性表：1点->1点；树：1点->n点；图：n点->n点
 
-#### 15、typedef的用法
+#### 15、typedef的用法（20200511）
 
-#### 16、链表的定义
++ 简单的示例
 
-#### 17_如果希望通过一个函数来对链表进行处理，我们至少需要接受链表的哪些参数
+```cpp
+#include <stdio.h>
+
+typedef int ZHANGSAN; //为int再重新多取一个名字,ZHANGSAN等价于int
+
+typedef struct Student
+{
+    int sid;
+    char name[100];
+    char sex;
+}ST;//为已有的struct Student{};重新取个名字ST
+
+int main(void)
+{
+    int i=10;//等价于ZHANGSAN i = 10;
+    ZHANGSAN j = 20;
+    printf("%d\n",j);
+    struct Student st;
+    struct Student *ps = &st;
+    
+    ST st2;
+    st2.sid=200;
+    reutrn 0;
+}
+```
+
++ 复杂的示例
+
+```cpp
+#include <stdio.h>
+
+typedef struct Student
+{
+    int sid;
+    char name[100];
+    char sex;
+}*PST; //PST等价于 struct Student * 【类型替换】
+
+int main(void)
+{
+    struct Student st;
+    PST ps = &st;  //加p意味着 是个指针
+    ps->sid = 99;
+    printf("%d\n",ps->sid);
+    
+    reutrn 0;
+}
+```
+
++ 第3个示例，typedef后面写了两个。
+
+```cpp
+#include <stdio.h>
+
+typedef struct Student
+{
+    int sid;
+    char name[100];
+    char sex;
+}*PSTU,STU; //等价于ST代表了struct Student， PST代表了 struct Student *
+
+int main(void)
+{
+    STU st;//相当于 sturct Stuent st;
+    PSTU ps = &st; //相当于struct Student *ps = &st;
+    ps->sid = 99;
+    printf("%d\n",ps->sid);
+    
+    reutrn 0;
+}
+```
+
+#### 16、链表的定义（20200512）
+
++ 离散存储【链表】
+  + 不连续（任何一点到任何一点，都有间距，但能被计算出来），离散的概念
++ **链表的定义**：
+  + 不连续存储（结点与结点不相连）；n个节点离散分配
+  + 彼此通过指针相连
+  + 每1个节点前面只有1个结点，后面也只有1个结点
+  + 第1个节点前面没有节点，最后1个节点后面没有节点（首节点没有节驱节点，尾节点没有后续节点。
++ 链表的分类：
++ 链表的算法：
++ 链表的优缺点：
++ 专业术语
+  + 首节点：4个节点，存放4个数据。 **有效数据的第1个节点**，（第1个存放有效数据的节点）
+  + 尾节点：最后一个存放有效数据的节点
+  + **头结点**
+    + 在首节点的前面，加了一个头结点（**头结点里没有存放有效数据；没有存放头结点的个数**）
+    + 主要用于**方便链表操作**，才加了一个没有意义的头结点，可以不加。
+    + 头结点的数据类型和有效元素的数据类型是一样的。
+  + 头指针
+    + **指向头结点的指针变量**
+  + 尾指针
+    + **指向尾结点的指针变量**
+
+#### 17、如果希望通过一个函数来对链表进行处理，我们至少需要接受链表的哪些参数（20200512）
+
++ **确定一个链表，需要几个参数**（1个）
+  + 不要长度（个数）；有了头节点就可以不要首节点；尾节点也不是必须，一个个往后找也能找到；**重要的是思考过程**。
+  + **只需要一个头指针**就可以了。【指针只要4个字节；存放头结点的话，就需要存放相应的数据类型（不同链表的类型还不一样）】
++ **确定一个数组，需要几个参数**
+  + 3个（有效元素的个数，长度，首地址）
 
 #### 18_每一个链表节点的数据类型该如何表示的问题
 
