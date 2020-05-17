@@ -392,15 +392,255 @@ free(r);//不能free(p-pNext)，这样会导致删除后面的所有
     + 离散存储
   + 非线性结构。
 
-#### 24、链表创建和链表遍历算法的演示
+#### 24、链表创建和链表遍历算法的演示（20200517）
 
-#### 25、判断链表是否为空 和 求链表长度算法的演示
++ list.cpp
+
+```cpp
+#include<stdio.h>
+#include<malloc.h>
+#include<stdlib.h>
+
+typedef struct Node
+{
+	int data; //数据域
+	struct Node* pNext; //指针域
+}NODE,*PNODE; //NODE等价于struct Node，PNODE就是 struct Node*
+
+PNODE create_list();
+void traverse_list(pHead);
+
+//分配内存
+
+int main()
+{
+    PNODE pHead = NULL;//等价于struct NODE*
+    pHead = create_list();  //创建一个非循环单链表，并将该链表的头结点的地址赋给pHead
+    traverse_list(pHead);//遍历
+	return 0;
+}
+
+void f()
+{
+    int i = 10;
+    int *p = (int*)malloc(100);//函数消亡后，p本身不存在了，但分配的100个字节的内存还是在的
+}
+
+PNODE create_list()
+{
+    int len;//用来存放有效节点的个数
+    int val;  //用来临时存放用户输入的结点的值
+    
+    //先生成头结点 【分配了一个不存放有效数据的头结点】
+    PNODE pHead = (PNODE)malloc(sizeof(NODE));
+    if(NULL == pHead)
+    {
+        printf("分配失败，程序终止！");
+        exit(-1);
+    }
+    
+    //pTail指向尾结点
+    PNODE pTail = pHead;
+    pTail->pNext = NULL;
+    
+    printf("请输入您需要生成的链表节点的个数：len = ");
+    scanf("%d",&len);
+    
+    for(int i=0;i<len;++i)
+    {
+        printf("请输入第%d个节点的值：",i+1);
+        scanf("%d",&val);
+        
+        //每次分配一个pNew的新结点
+        PNODE pNew = (PNODE)malloc(sizeof(NODE));
+        if(NULL == pNew)
+        {
+            printf("分配失败，程序终止！");
+            exit(-1);
+        }
+        pNew->data = val;
+        //把新生成的pNew挂到头结点指向链点的最后，而不是pHead的结点后面
+        //有一个尾指针pTail永远指向最后面
+        #if 0 
+        //这个写法有问题
+        pHead->pNext = pNew;
+        pNew->pNext = NULL;
+        #endif
+        pTail->pNext = pNew;
+        pNew->pNext = NULL;
+        pTail = pNew;
+    }
+    
+    return pHead;
+}
+
+void traverse_list(pHead)
+{
+    //a[i]等价于*(a+i)，因为数组的地址是连续的
+    //先定义p，指向第1个有效节点，然后再往后移
+    PNODE p = pHead->pNext;  //【要借助临时变量】
+    while(NULL != p) //我用的是if()，用错了
+    {
+        printf("输出p的值: %d ",p->data);
+        p = p->pNext;
+    }
+    printf("\n");
+}
+```
+
+#### 25、判断链表是否为空 和 求链表长度算法的演示（20200517）
+
++ 判空&求长度
+
+```cpp
+bool is_empty(PNODE pHead);  //链表一般不判满的情况
+{
+    if(pHead->pNext == NULL)
+        return true;
+    else
+        return false;
+}
+
+int length_list(PNODE pHead);
+{
+    int len= 0;
+    PNODE p = pHead->pNext;
+    while(p!= NULL)
+    {
+        ++len;
+        p = p->pNext;
+    }
+    return len;
+}
+bool insert_list(PNODE,int,int);//链表，插入位置，插入的值
+bool delete_list(PNODE,int,int*);//把删除的值给传出来
+void sort_list(PNODE);
+```
 
 #### 26、通过链表排序算法的演示 再次详细讨论到底什么是算法以及到底什么是泛型【重点】
 
-#### 27、如何学习算法自己的一些感想
++ 算法
+  + 狭义的算法是与数据的存储方式密切相关的
+  + 广义的算法是与数据的存储方式无关的
+  + 泛型：
+    + 利用某种技术达到的效果就是：不同的存储方式，执行的操作时一样的。
+  + **数组排序时用了`++`，但链表里没有`++`，这样可以用“函数重载”的方式来实现`++`运算符的操作**。有时候`p++`可以理解为p调用++函数，内部实现为`p=p->pNext;`
 
-#### 28、链表插入和删除算法的演示
++ 排序
+
+```cpp
+void sort_list(PNODE pHead)
+{
+    #if 0
+    //数组的比较（冒泡）
+    int i,j,t;
+    for(i=0;i<len-1;++i)  //6个元素的话，比较5次。
+    {
+        for(j=i+1;j<len;++j)
+        {
+            if(a[i]>a[j])
+            {
+                t = a[i];
+                a[i]=a[j];
+                a[j]=t;
+            }
+        }
+    }
+    #endif
+    //数组和链表，都属于线性结构 【算法是一样的】
+    
+    int i,j,t;
+    int len = 10;//获取链表的长度，这里写成固定值了
+    PNODE p,q;
+    for(i=0,p=pHead->pNext;i<len-1;++i,p=p->pNext)
+    {
+        for(j=i+1,q=p->pNext;j<len;++j,q=q->pNext)
+        {
+            if(p->data > q->data)
+            {
+                t = p->data;
+                p->data = q->data;
+                q->data = t;
+            }
+        }
+    }
+    return;
+}
+```
+
+#### 27、如何学习算法自己的一些感想（20200517）
+
++ 看到一个算法，**自己想不通，搞不定很正常**，属于数学上的公式或定理。（**把人家答案看懂就行**）
++ **看懂程序3步**
+  + 流程（就是步骤）
+  + 每个语句的功能
+  + 试数
++ **遇到部分不是很懂的情况，就暂时先背会，然后再不断琢磨**。
+
+#### 28、链表插入和删除算法的演示（20200517）
+
++ 插入
+
+```cpp
+//在pHead所指向链表的第pos个节点的前面插入一相新的结点，该结点的值是val，并且pos的值是从1开始的
+bool insert_list(PNODE pHead,int pos int val)
+{
+    //链表不存在满的情况，满不满就不需要判断
+    //先求出长度，再与pos进行比较
+    int i = 0;
+    PNODE p = pHead;
+    while(NULL != p && i<pos-1)
+    {
+        p = p->pNext;
+        ++i;
+    }
+    if(i>pos-1 || NULL == p)
+        return false;
+    
+    PNODE pNew = (PNODE)malloc(sizeof(NODE));
+    if(NULL == pNew)
+    {
+        printf("动态分配内存失败！\n");
+        exit(-1);
+    }
+    pNew->data = val;
+    
+    PNODE q = p->pNext;
+    p->pNext = pNew;
+    pNew->pNext = q;
+    
+    return true;
+}
+```
+
++ 删除
+
+```cpp
+//想删除第5个，就要找到第4个。【待删除元素的前1个节点】
+bool delete_list(PNODE pHead,int pos int *val)
+{
+    int i = 0;
+    PNODE p = pHead;
+    while(NULL != p->pNext && i<pos-1)
+    {
+        p = p->pNext;
+        ++i;
+    }
+    if(i>pos-1 || NULL == p->pNext)
+        return false;
+    
+    PNODE q = p->pNext;
+    *pVal = q->data;
+    
+    p->pNext = p->pNext->pNext;
+    free(q);
+    q = NULL;
+    
+    return true;
+}
+```
+
+
 
 #### 29、复习
 
