@@ -1,0 +1,88 @@
+## Part2高级语法（chap5-10）
+
+### chap10、认识自定义数据类型
+
+#### 10.1、结构
+
++ **结构**是一种用户自定义数据类型，能将一种或多种数据类型集合在一起，形成新的数据类型。
++ 10-1-1、结构的声明方式
+
+```cpp
+struct Student{
+    char s_Num[10];
+    char Name[20];
+    int Chi_score;
+    int Math_score;
+    int Eng_score;
+}Jerry; //可以这样定义
+struct Student John; //也可以这样定义
+//在定义变量的同时设置初值
+Student May={"92013368","May",80,75,92};
+```
+
++ 10-1-2、结构的存取
+  + 用`.`操作符
++ 10-1-3、结构指针
+  + 用`结构指针->结构成员名称;`或`(*结构指针).结构成员名称`两种方式。
+
+```cpp
+struct Student{
+    char name[10];
+    int score;
+};
+struct Student s1; //声明常规的结构变量
+struct Student *s2;//声明结构指针
+```
+
+#### 10.2、结构与数组
+
++ 10-2-1、结构数组
++ 10-2-2、结构的数组成员
++ 10-2-3、结构指针数组
+
+#### 10.3、嵌套结构
+
++ 声明嵌套结构
+
+#### 10.4、函数与结构
+
++ 10-4-1、结构传值调用
++ 10-4-2、结构传址调用
++ 10-4-3、结构传引用调用
+
+#### 10.5、其他自定义数据类型
+
++ 10-5-1、类型定义指令
+
+```cpp
+typedef struct house{
+    int roomNumber;
+    char houseName[10];
+}house_info;
+house_info myhouse;//等价于 struct house myhouse;
+```
+
++ 10-5-2、检举类型
+
+```cpp
+enum Drink{
+    coffee = 20,
+    milk = 10,
+    tea,
+    water  //最后一个不要 逗号 了
+}; //所有自定义类型 分号 不能忘
+```
+
++ 10-5-3、联合类型
+
+```cpp
+union Data{
+    int a;
+    int b;
+    char name[20];
+}ul;  //分号不能忘
+```
+
+## ReadMe
+
++ 20200524看了chap10的内容。
