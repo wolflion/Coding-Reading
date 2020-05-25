@@ -276,7 +276,89 @@ int main(void)
 }
 ```
 
-#### 10、跨函数使用内存讲解及其示例
+#### 10、跨函数使用内存讲解及其示例（20200525）
+
++ g()调用f()的过程中，f函数分配了内存，但g函数里一般不能用，但本节是想的是如何引用的。**用动态分配就能解决了**
++ 代码1
+
+```cpp
+#include<stdio.h>
+int f();
+int main(void)
+{
+    int i = 10;
+    i = f();
+    printf("i=%d\n",i); //i输出20
+}
+
+int f()  //f调用完毕，j就没有了。
+{
+    int j = 20;
+    return j;
+}
+```
+
++ 下列程序中，能够通过调用函数fun，使main函数中的指针变量p指向一个合法的整型单元的是
+
+```cpp
+A) main()
+{
+    int *p; //没有合法值，只是个垃圾数据
+    fun(p);  //error，这里要传地址才行
+    ...
+}
+
+int fun(int *p)
+{
+    int s;  //这个s只是个局部变量，会释放掉。
+    p = &s;
+}
+
+B) main()
+{
+    int *p;
+    func(&p);
+    ...
+}
+
+int fun(int **p)
+{
+    int s;  //这个s只是个局部变量，会释放掉。
+    p = &s;
+}
+
+C) //这个是对的
+#include<stdlib.h>
+main()
+{
+    int *p;
+    func(&p);
+    ...
+}
+
+int fun(int **p)
+{
+    *p=(int*)malloc(4);//这里没有free()，所以没有释放。
+}
+
+D)
+#include<stdlib.h>
+main()
+{
+    int *p;
+    func(p); //没加取地址符，这是啥套路? 
+    ...
+}
+
+int fun(int *p)
+{
+    *p=(int*)malloc(sizeof(int));
+}
+```
+
+
+
+
 
 #### 11、复习
 
