@@ -27,6 +27,26 @@
     + 当const常量为全局，并且需要在其它文件中使用 【这个时候才分配空间】
     + 当使用&操作符取const常量的地址 【这个时候才分配空间】
 
+#### 17、const和#define的对比（20200620）*没有听完*
+
++ const分配内存的时机，编译器编译期间。
+
+```
+void main()
+{
+	int a;//好像 a是一个常量
+	const int b = 10;
+	int c;
+	
+	printf("%d,%d,%d",&a,&b,%c);
+	system("pause");
+}
+```
+
++ const用途
+  + 与#define的相同之处
+  + 与#define的不同之处
+
 
 
 ### day07
