@@ -256,6 +256,18 @@ void main()
 
 #### 29_作业
 
+### day04
+
+#### 02、const修饰的是谁（20200709）
+
++ 1、const写在什么位置 没有关系
+  + `const void OpVar(int a, int b)`
+  + `	void OpVar(int a, int b) const`
++ 2、const修改的是this指针。
+  + **因为 `this指针`被隐藏了，没办法写在里面，所以就写在前后都没关系了**
+  + `void OpVar(const Test *this, int a, int b)`
++ **要把细节抠得相当细**。
+
 ### day07
 
 #### 02、多态原理探究（20200615）
