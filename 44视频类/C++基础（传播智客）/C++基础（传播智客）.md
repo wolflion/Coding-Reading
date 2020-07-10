@@ -268,6 +268,17 @@ void main()
   + `void OpVar(const Test *this, int a, int b)`
 + **要把细节抠得相当细**。
 
+#### 03、this的const修饰课堂答疑（）
+
+#### 04、全局函数pk成员函数（返回元素，引用，星号this）（20200710）
+
++ **全局函数和成员函数转换的问题**。
+  + `Test add(Test &t1, Test &t2)==>Test add(Test &t2)`，**通过this指针隐藏左操作数**（全局转化为成员）
+  + `void printAB() ==> void printAB(Test *pthis)`，**多了一个参数**（成员函数转化为全局）
++ 函数返回元素和返回引用
+  + `return *this`
++ *看到16min（共22min）*
+
 ### day07
 
 #### 02、多态原理探究（20200615）
