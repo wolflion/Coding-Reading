@@ -9,21 +9,41 @@ class A
 	for(int i=0;i<100000;++i)
 	{
 		cout<<"执行插入1个元素"<<i<<endl;
+		my_mutex.lock();
 		msgRecvQueue.push_back(i); //假设数字i就是收到的命令，直接弄到消息队列里来
+		my_mutex.unlock();
 	}
 	}
 	
-	//线程2：把数据从消息队列里取出的过程。  【消息队列就是容器】
-	void outMsgRecvQueue()
+	bool outMsgLULProc(int &command)
 	{
-		for(int i=0;i<100000;++i)
-	{
+		my_mutex.lock();  // 如果只加1个的话，还是报错
 		if(!msgRecvQueue.empty())
 		{
 			//消息队列不为空
 			int command = msgRecvQueue.front(); //从头取，从尾巴插。【返回第一个元素，但不检查元素是否存在】
 			msgRecvQueue.pop_front(); //移除第一个元素，但不返回。
-			//这里考虑处理数据
+			my_mutex.unlock();  // 注意：每个分支往外退，都要有个unlock()，【这个自己没想到】
+			return true;
+		}
+		my_mutex.unlock();
+		return false;
+	}
+	
+	//线程2：把数据从消息队列里取出的过程。  【消息队列就是容器】
+	void outMsgRecvQueue()
+	{
+		int command = 0;
+		for(int i=0;i<100000;++i)
+	{
+		
+		bool result = outMsgLULProc(command);
+	
+		if(result == true)
+		{
+			cout<<"取出一个元素，成功"<<endl;
+			//继续处理
+			//....
 		}
 		else
 		{
@@ -36,6 +56,7 @@ class A
 	}
 	private:
 	std::list<int>msgRecvQueue; //容器，专门用于代表玩家给咱发送过来的命令
+	std::mutex my_mutex;  //创建一个互斥量
 }
 
 
@@ -48,4 +69,9 @@ int main()
 	
 	myOutMsgObj.join();
 	myInMsgObj.join();
+	
+	//保护共享数据，操作时，用代码把共享数据锁住，操作数据，解锁
+	//其它想操作共享数据的线程必须得等待解锁，锁住，操作，解锁
+	
+	return 0;
 }
