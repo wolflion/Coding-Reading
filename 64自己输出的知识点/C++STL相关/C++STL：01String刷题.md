@@ -72,3 +72,58 @@ public:
 };
 ```
 
+### 20、[有效的括号](https://leetcode-cn.com/problems/valid-parentheses/)
+
++ 是我AC的代码，也是改了几回的。
+  + 比如pop()前没有判断stack是否空，直接core掉了。
+  + 没有先判断长度，是不是偶数；**当然，最后一步没有判断stack是否为空了**。
+
+```cpp
+class Solution {
+public:
+	bool isValid(string s) {
+bool bValue = true;
+	stack<char> cStack;
+	if (s.size() % 2 == 1)
+	{
+		return false;
+	}
+	for (auto i : s)
+	{
+		switch (i)
+		{	
+		case '(':
+		case '[':
+		case '{':
+			cStack.push(i);
+			break;
+		case ')':
+			if (cStack.size() == 0|| cStack.top() != '(')
+				bValue = false;
+                if(cStack.size() > 0)
+			cStack.pop();
+			break;
+		case '}':
+			if (cStack.size() == 0 || cStack.top() != '{')
+				bValue = false;
+                if(cStack.size() > 0)
+			cStack.pop();
+			break;
+		case ']':
+			if (cStack.size() == 0 || cStack.top() != '[')
+				bValue = false;
+                if(cStack.size() > 0)
+			cStack.pop();
+			break;
+		default:
+			break;
+		}
+	}
+	if (cStack.size() > 0)
+		bValue = false;
+		
+    return bValue;
+	}
+};
+```
+
