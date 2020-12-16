@@ -163,3 +163,76 @@ Line 1034: Char 9: runtime error: reference binding to null pointer of type 'std
 };
 ```
 
+### 58、[最后一个单词的长度](https://leetcode-cn.com/problems/length-of-last-word/)
+
++ 我写的代码：
+  + 有点没太理解 "a "，这样的情况，返回的length是1，于是注释掉我写的，然后网上找的一段。
+  + **`break`和`continue`还是要活用一下**。
++ 思路：（1）想着就`reverse`，（2）求长度后，从最后一个往前，找到空格，就是num了。
+
+```cpp
+int Solution::lengthOfLastWord(string s)
+{
+	if (s.size() == 0)
+		return 0;
+
+	int iCnt = 0;
+	reverse(s.begin(), s.end());
+	for (int i = 0; i < s.size(); i++)
+	{
+		if (s[i] != ' ')
+			iCnt++;
+		else if (iCnt != 0)
+			break;
+		/*
+		else if (s[i] == ' ')
+		{
+			return iCnt;
+		}
+		*/
+			
+	}
+	return iCnt;
+}
+```
+
+### 17、[ 电话号码的字母组合](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)
+
++ 思路
+  + 我想到了用字母对应的关系，但我定义的`vector<string>`后，我竟然用的是`push_back()`，**感觉到不太好，但没想到可以直接初始化**。
+  + **回溯法**还不太理解。
++ 代码（copy）的
+
+```cpp
+class Solution {
+private:
+    vector<string> res;
+    // 我想的是vetor<string>，不过没想到初始化的方式，用的还是push_back()的老思路。
+    const string letterMap[10]{""," ","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz" };
+    void findCombination(const string& digits, int index, const string& s){
+        if(index == digits.size()){
+            //保存结果
+            res.push_back(s);
+            return;
+        }
+        char c = digits[index]; //获取字符串中的指定位置的数字
+        string letters = letterMap[c -'0']; //获取上述数字对应的字母
+        for(int i =0; i < letters.size(); i++){ //遍历上述数字对应字母的每种可能性，然后对之后的数字字符串递归上述操作
+            findCombination(digits, index + 1, s + letters[i]);
+        }
+
+    }
+public:
+    vector<string> letterCombinations(string digits) {
+        res.clear();
+        if(digits == "")
+            return res;
+        findCombination(digits, 0, "");
+        return res;
+    }
+};
+```
+
+
+
+### 0、
