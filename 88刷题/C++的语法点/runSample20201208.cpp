@@ -53,7 +53,7 @@ void fun3()
 
 
 template <class T>
-T max(T& a, T& b)
+inline T max(T& a, T& b)
 {
 	return a > b ? a : b;
 }
